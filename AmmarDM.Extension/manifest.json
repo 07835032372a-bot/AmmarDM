@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Ammar DM Integration Module",
+  "version": "1.0.0",
+  "description": "إضافة التقاط الروابط والفيديوهات لبرنامج Ammar DM",
+  "permissions": [
+    "downloads",
+    "declarativeNetRequest",
+    "storage",
+    "tabs",
+    "nativeMessaging",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_title": "Ammar DM Integration Module",
+    "default_popup": "popup.html"
+  }
+}

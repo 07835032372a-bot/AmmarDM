@@ -1,0 +1,30 @@
+﻿<Window x:Class="AmmarDM.Updater.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="تحديث Ammar DM" Height="220" Width="420"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        FlowDirection="RightToLeft"
+        Background="#F4F4F4"
+        FontFamily="Segoe UI">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBlock Text="🔄" FontSize="26" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="جاري تحديث Ammar DM..." FontWeight="Bold" FontSize="14" Foreground="#222"/>
+                <TextBlock x:Name="StatusLabel" Text="التحضير لتطبيق التحديث..." FontSize="11" Foreground="#666" Margin="0,3,0,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <ProgressBar Grid.Row="1" x:Name="UpdateProgressBar" Height="18" Value="0" Maximum="100" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="2" x:Name="DetailLabel" Text="يرجى الانتظار حتى اكتمال استبدال الملفات..." FontSize="10" Foreground="#888" TextWrapping="Wrap"/>
+    </Grid>
+</Window>

@@ -1,0 +1,109 @@
+<Window x:Class="AmmarDM.UI.Views.DownloadDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="تحميل الملف - Ammar DM"
+        Height="360" Width="550"
+        WindowStartupLocation="CenterScreen"
+        FlowDirection="RightToLeft"
+        Background="#F0F0F0"
+        ResizeMode="CanMinimize">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" BorderBrush="#C0C0C0" BorderThickness="1" CornerRadius="2" Padding="10" Margin="0,0,0,10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="22"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="اسم الملف:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FileNameLabel" FontWeight="Bold" Foreground="#111" FontSize="11" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="حجم الملف:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="3" x:Name="TotalLabel" Foreground="#111" FontSize="11" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="الحالة:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="StatusLabel" Foreground="#1565C0" FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Text="جارٍ التحميل..."/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="سرعة النقل:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" x:Name="SpeedLabel" FontWeight="Bold" Foreground="#2E7D32" FontSize="11" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="تم تحميله:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="DownloadedLabel" Foreground="#111" FontSize="11" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="الوقت المتبقي:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Grid.Column="3" x:Name="EtaLabel" Foreground="#D84315" FontSize="11" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="الاستئناف:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Foreground="#2E7D32" FontSize="11" VerticalAlignment="Center" Text="مدعوم"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="خيوط الاتصال:" Foreground="#555" FontSize="11" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="3" x:Name="ActiveSegmentsLabel" Foreground="#1565C0" FontWeight="Bold" FontSize="11" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <ProgressBar x:Name="DetailProgressBar" Maximum="100" Height="22"
+                         Foreground="#2E7D32" Background="#E0E0E0"
+                         BorderThickness="1" BorderBrush="#9E9E9E"/>
+            <TextBlock x:Name="ProgressLabel" Text="0.0%"
+                       FontWeight="Bold" FontSize="12"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="#212121"/>
+        </Grid>
+
+        <GroupBox Grid.Row="2" Header="مخطط خيوط التحميل المتوازي (IDM Segments)" Background="White" BorderBrush="#BDBDBD" Margin="0,0,0,10">
+            <DataGrid x:Name="SegmentsGrid"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="Horizontal"
+                      HorizontalGridLinesBrush="#F0F0F0"
+                      Background="White"
+                      BorderThickness="0"
+                      RowHeight="22"
+                      FontSize="11">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="#" Binding="{Binding Index}" Width="35"/>
+                    <DataGridTemplateColumn Header="تقدم الخيط" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2,1">
+                                    <ProgressBar Value="{Binding Progress, Mode=OneWay}" Maximum="100" Height="14"
+                                                 Foreground="#1565C0" Background="#ECEFF1" BorderThickness="1" BorderBrush="#B0BEC5"/>
+                                    <TextBlock Text="{Binding ProgressDisplay}"
+                                               FontSize="9" FontWeight="Bold"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Foreground="#263238"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="تم تحميله" Binding="{Binding DownloadedDisplay}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button x:Name="PauseResumeBtn" Content="إيقاف مؤقت" Width="95" Height="26" Margin="0,0,8,0" Click="PauseResumeBtn_Click"/>
+            <Button Content="إلغاء الأمر" Width="95" Height="26" Margin="0,0,8,0" Click="CancelBtn_Click"/>
+            <Button Content="إغلاق النافذة" Width="95" Height="26" Click="CloseBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

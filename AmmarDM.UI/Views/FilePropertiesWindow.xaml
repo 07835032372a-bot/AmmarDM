@@ -1,0 +1,85 @@
+<Window x:Class="AmmarDM.UI.Views.FilePropertiesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="معلومات وخصائص الملف - Ammar DM"
+        Height="410" Width="520"
+        WindowStartupLocation="CenterOwner"
+        FlowDirection="RightToLeft"
+        Background="#F5F5F5"
+        ResizeMode="NoResize">
+
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" BorderBrush="#D0D0D0" BorderThickness="1" Padding="10" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="📄" FontSize="32" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="FileNameHeader" FontWeight="Bold" FontSize="13" Foreground="#111" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="StatusHeader" FontSize="11" Foreground="#1565C0" Margin="0,2,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Background="White" BorderBrush="#D0D0D0" BorderThickness="1" Padding="12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="95"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 1. عنوان الرابط وله زر تحديث -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="عنوان الرابط (URL):" FontSize="11" Foreground="#444" VerticalAlignment="Center"/>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="UrlTextBox" Height="24" VerticalContentAlignment="Center" Margin="0,0,6,0"/>
+                    <Button Grid.Column="1" Content="تحديث الرابط" Height="24" FontSize="11" Click="UpdateUrlBtn_Click"/>
+                </Grid>
+
+                <!-- 2. اسم الملف وحفظ في -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="اسم الملف:" FontSize="11" Foreground="#444" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="FileNameTextBox" Height="24" VerticalContentAlignment="Center"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="مسار الحفظ:" FontSize="11" Foreground="#444" VerticalAlignment="Center"/>
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="SavePathTextBox" Height="24" VerticalContentAlignment="Center" Margin="0,0,6,0" IsReadOnly="True"/>
+                    <Button Grid.Column="1" Content="فتح المجلد" Height="24" FontSize="11" Click="OpenFolderBtn_Click"/>
+                </Grid>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="حجم الملف:" FontSize="11" Foreground="#444" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="FileSizeText" FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="تاريخ الإضافة:" FontSize="11" Foreground="#444" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" x:Name="DateAddedText" FontSize="11" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="ملاحظات:" FontSize="11" Foreground="#444" VerticalAlignment="Top" Margin="0,4,0,0"/>
+                <TextBox Grid.Row="5" Grid.Column="1" x:Name="CommentTextBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="45" Margin="0,4,0,0"/>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+            <Button x:Name="OpenFileBtn" Content="فتح الملف" Width="85" Height="26" Margin="0,0,8,0" Click="OpenFileBtn_Click"/>
+            <Button x:Name="SaveBtn" Content="حفظ التغييرات" Width="95" Height="26" Margin="0,0,8,0" FontWeight="Bold" Click="SaveBtn_Click"/>
+            <Button Content="إغلاق" Width="75" Height="26" Click="CloseBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

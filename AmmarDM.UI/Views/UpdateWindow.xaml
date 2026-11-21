@@ -1,0 +1,59 @@
+<Window x:Class="AmmarDM.UI.Views.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="تحديث Ammar DM" Height="360" Width="480"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        FlowDirection="RightToLeft"
+        Background="#F5F5F5"
+        FontFamily="Segoe UI">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- الهيدر والمعلومات -->
+        <Border Grid.Row="0" Background="#E8F1FB" BorderBrush="#C4DDF7" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="🚀" FontSize="26" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="TitleText" Text="يتوفر إصدار جديد من Ammar DM!" FontWeight="Bold" FontSize="13" Foreground="#005A9E"/>
+                    <TextBlock x:Name="VersionText" Text="الإصدار الجديد: 1.1.0 (الإصدار الحالي: 1.0.0)" FontSize="11" Foreground="#444" Margin="0,3,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- سجل التغييرات والتحسينات -->
+        <GroupBox Grid.Row="1" Header="التحسينات والميزات الجديدة في هذا الإصدار:" Margin="0,0,0,12" FontSize="11">
+            <Border Background="White" BorderBrush="#E0E0E0" BorderThickness="1" Margin="4">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="ChangelogList" Margin="8">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,2">
+                                    <TextBlock Text="• " FontWeight="Bold" Foreground="#0078D7"/>
+                                    <TextBlock Text="{Binding}" FontSize="11" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </GroupBox>
+
+        <!-- شريط التقدم عند التنزيل -->
+        <StackPanel Grid.Row="2" x:Name="ProgressPanel" Visibility="Collapsed" Margin="0,0,0,12">
+            <TextBlock x:Name="ProgressStatusText" Text="جاري تحميل ملف التحديث..." FontSize="11" Foreground="#555" Margin="0,0,0,5"/>
+            <ProgressBar x:Name="DownloadProgressBar" Height="14" Value="0" Maximum="100"/>
+        </StackPanel>
+
+        <!-- أزرار الإجراءات -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button x:Name="UpdateNowBtn" Content="تحديث الآن" Width="100" Height="28" Background="#0078D7" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,8,0" Click="UpdateNowBtn_Click"/>
+            <Button x:Name="LaterBtn" Content="تذكيري لاحقاً" Width="90" Height="28" Background="#E0E0E0" Click="LaterBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

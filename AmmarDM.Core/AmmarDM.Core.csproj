@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AmmarDM.Core</AssemblyName>
+    <RootNamespace>AmmarDM.Core</RootNamespace>
+    <Company>Ammar Al-Sumaidaie</Company>
+    <Product>AmmarDM</Product>
+    <Copyright>Copyright © 2024 Ammar Al-Sumaidaie</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="YoutubeExplode" Version="6.6.3" />
+  </ItemGroup>
+</Project>

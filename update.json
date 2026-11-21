@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0.0",
+  "releaseDate": "2026-11-21",
+  "downloadUrl": "https://github.com/07835032372a-bot/AmmarDM/releases/download/v1.0.0/AmmarDM-update.zip",
+  "changelog": [
+    "الإصدار الأول لبرنامج Ammar DM",
+    "محرك تحميل متعدد الخيوط والتقسيم الذكي",
+    "دعم استئناف التحميل عند انقطاع الاتصال",
+    "نظام تحديث تلقائي متكامل مع GitHub"
+  ],
+  "isMandatory": false
+}
