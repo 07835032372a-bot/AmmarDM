@@ -1,7 +1,7 @@
 {
   "version": "1.1.0.0",
   "releaseDate": "2026-11-22",
-  "downloadUrl": "https://raw.githubusercontent.com/07835032372a-bot/AmmarDM/main/AmmarDM-update-1.1.0.zip",
+  "downloadUrl": "http://127.0.0.1:57892/AmmarDM-update-1.1.0.zip",
   "changelog": [
     "إضافة أيقونة البرنامج الرسمية بجانب الساعة (System Tray)",
     "قائمة كليك يمين سريعة للتحكم بالتنزيلات من شريط المهام",
