@@ -1,13 +1,13 @@
 {
-  "version": "1.1.0.0",
+  "version": "1.2.0.0",
   "releaseDate": "2026-11-22",
-  "downloadUrl": "https://github.com/07835032372a-bot/AmmarDM/releases/download/v1.1.0/AmmarDM-update-1.1.0.zip",
+  "downloadUrl": "https://github.com/07835032372a-bot/AmmarDM/releases/download/v1.2.0/AmmarDM-update-1.2.0.zip",
   "changelog": [
-    "إضافة أيقونة البرنامج الرسمية بجانب الساعة (System Tray) مع العمل الصامت",
-    "قائمة كليك يمين سريعة للتحكم بالتنزيلات واستئنافها وإيقافها",
-    "نافذة تأكيد التنزيل (IDM Style) ومنع الالتقاط والتنزيل العشوائي",
-    "تجاهل سجل المتصفح القديم ومنع تكرار الروابط",
-    "تحصينات أمنية شاملة ضد ثغرات فك الضغط (Zip Slip) وتنقية أسماء الملفات"
+    "تفعيل التشغيل التلقائي مع بدء تشغيل ويندوز افتراضياً في التثبيت وإعدادات الـ Registry",
+    "تحديث شاشة الخيارات لتطبيق التشغيل مع ويندوز فوراً",
+    "التحكم الكامل بقائمة امتدادات التحميل وإجبار البرنامج على اقتناصها",
+    "أداة تحديث مستقلة بصلاحيات المسؤول (Run as Administrator) لحل مشكلة Access Denied",
+    "تحصينات أمنية شاملة (Zip Slip Protection & File Name Sanitization)"
   ],
   "isMandatory": false
 }
