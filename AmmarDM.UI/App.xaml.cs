@@ -7,7 +7,7 @@ using AmmarDM.UI.ViewModels;
 
 namespace AmmarDM.UI
 {
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         public static AppSettings Settings { get; private set; } = new();
         public static DownloadRepository Repository { get; private set; } = null!;

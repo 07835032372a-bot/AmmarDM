@@ -87,7 +87,13 @@ namespace AmmarDM.Updater
                             continue;
                         }
 
-                        var destinationPath = Path.Combine(_targetDir, entry.FullName);
+                        var destinationPath = Path.GetFullPath(Path.Combine(_targetDir, entry.FullName));
+                        // حماية أمنية من ثغرة Zip Slip: التأكد أن المسار لا يخرج خارج المجلد المستهدف
+                        if (!destinationPath.StartsWith(Path.GetFullPath(_targetDir), StringComparison.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
+
                         var dir = Path.GetDirectoryName(destinationPath);
                         if (!string.IsNullOrEmpty(dir))
                         {

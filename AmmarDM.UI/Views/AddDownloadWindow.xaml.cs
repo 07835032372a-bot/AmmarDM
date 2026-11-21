@@ -10,12 +10,20 @@ namespace AmmarDM.UI.Views
     {
         public DownloadItem? ResultItem { get; private set; }
 
-        public AddDownloadWindow()
+        public AddDownloadWindow(string? initialUrl = null, string? initialFileName = null)
         {
             InitializeComponent();
             SavePathTextBox.Text = App.Settings.DefaultDownloadPath;
 
-            if (Clipboard.ContainsText())
+            if (!string.IsNullOrEmpty(initialUrl))
+            {
+                UrlTextBox.Text = initialUrl;
+                if (!string.IsNullOrEmpty(initialFileName))
+                {
+                    FileNameTextBox.Text = initialFileName;
+                }
+            }
+            else if (Clipboard.ContainsText())
             {
                 var text = Clipboard.GetText().Trim();
                 if (Uri.TryCreate(text, UriKind.Absolute, out var uri) &&

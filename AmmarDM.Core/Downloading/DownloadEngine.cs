@@ -547,6 +547,15 @@ namespace AmmarDM.Core.Downloading
             return new long[count];
         }
 
+        public static string SanitizeFileName(string fileName)
+        {
+            var invalidChars = Path.GetInvalidFileNameChars();
+            var cleaned = string.Join("_", fileName.Split(invalidChars, StringSplitOptions.RemoveEmptyEntries)).Trim();
+            // منع ثغرات Path Traversal مثل .. أو المسارات النسبية
+            cleaned = cleaned.Replace("..", "").Trim('.', ' ', '/', '\\');
+            return string.IsNullOrEmpty(cleaned) ? $"download_{DateTime.Now:yyyyMMdd_HHmmss}.bin" : cleaned;
+        }
+
         public static string GetFileNameFromUrl(string url, string? contentDisposition)
         {
             if (!string.IsNullOrEmpty(contentDisposition))
@@ -560,11 +569,11 @@ namespace AmmarDM.Core.Downloading
                         var val = t.Substring(10);
                         var idx = val.IndexOf("''");
                         if (idx != -1) val = val.Substring(idx + 2);
-                        return Uri.UnescapeDataString(val.Trim('"'));
+                        return SanitizeFileName(Uri.UnescapeDataString(val.Trim('"')));
                     }
                     if (t.StartsWith("filename=", StringComparison.OrdinalIgnoreCase))
                     {
-                        return t.Substring(9).Trim('"');
+                        return SanitizeFileName(t.Substring(9).Trim('"'));
                     }
                 }
             }
@@ -574,7 +583,7 @@ namespace AmmarDM.Core.Downloading
                 var uri = new Uri(url);
                 var name = Path.GetFileName(uri.LocalPath);
                 if (!string.IsNullOrEmpty(name) && name.Contains('.'))
-                    return Uri.UnescapeDataString(name);
+                    return SanitizeFileName(Uri.UnescapeDataString(name));
             }
             catch { }
 

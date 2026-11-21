@@ -96,14 +96,41 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+// قائمة التنزيلات التي تم التقاطها مؤخراً لمنع تكرار التقاط نفس الرابط
+const recentlyCapturedUrls = new Set();
+
 // مراقبة واقتناص التنزيلات العادية
 chrome.downloads.onCreated.addListener((downloadItem) => {
   if (!cachedSettings.captureDownloads) return;
 
+  // تجاهل التنزيلات القديمة المكتملة أو الملغاة في سجل المتصفح (التقاط فقط ما هو قيد البدء الآن)
+  if (downloadItem.state && downloadItem.state !== "in_progress") {
+    return;
+  }
+
+  // إذا كان التنزيل قد بدأ منذ أكثر من دقيقة (تنزيل قديم مخزن في المتصفح) فتجاهله تماماً
+  if (downloadItem.startTime) {
+    const startedMs = new Date(downloadItem.startTime).getTime();
+    if (Date.now() - startedMs > 60000) {
+      return;
+    }
+  }
+
   const url = (downloadItem.url || "").toLowerCase();
   const filename = (downloadItem.filename || "").toLowerCase();
 
+  // تجاهل التنزيلات الداخلية أو التي ليس لها رابط فعلي
+  if (!url || url.startsWith("blob:") || url.startsWith("data:") || url.startsWith("chrome:") || url.startsWith("edge:")) {
+    return;
+  }
+
+  // تجاهل المواقع الموجودة في قائمة التجاهل
   if (cachedSettings.ignoredSites && cachedSettings.ignoredSites.some(site => url.includes(site.toLowerCase()))) {
+    return;
+  }
+
+  // منع تكرار التقاط نفس الرابط خلال 5 ثوانٍ
+  if (recentlyCapturedUrls.has(downloadItem.url)) {
     return;
   }
 
@@ -113,6 +140,9 @@ chrome.downloads.onCreated.addListener((downloadItem) => {
   });
 
   if (isTargetExtension && (url.startsWith("http://") || url.startsWith("https://"))) {
+    recentlyCapturedUrls.add(downloadItem.url);
+    setTimeout(() => recentlyCapturedUrls.delete(downloadItem.url), 5000);
+
     chrome.downloads.cancel(downloadItem.id, () => {
       chrome.downloads.erase({ id: downloadItem.id });
       sendDownloadToApp({

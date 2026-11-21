@@ -34,11 +34,12 @@ Name: "autostart"; Description: "تشغيل Ammar DM تلقائياً عند ب�
 
 [Files]
 Source: "{#MyAppSource}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\AmmarDM\Resources\app_icon.ico"; DestDir: "{app}\Resources"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Resources\app_icon.ico"
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Resources\app_icon.ico"; WorkingDir: "{app}"
 Name: "{group}\إلغاء تثبيت {#MyAppName}"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Resources\app_icon.ico"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\Resources\app_icon.ico"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Registry]
 ; تشغيل تلقائي مع الويندوز عند اختيار المهمة
