@@ -13,7 +13,13 @@
     <Copyright>Copyright © 2024 Ammar Al-Sumaidaie</Copyright>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <ApplicationIcon>..\Resources\app_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="..\Resources\app_icon.ico" Link="Resources\app_icon.ico" />
+    <Resource Include="..\Resources\app_icon.png" Link="Resources\app_icon.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AmmarDM.Core\AmmarDM.Core.csproj" />

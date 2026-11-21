@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -218,6 +220,67 @@ namespace AmmarDM.UI.Views
         {
             App.Repository.SaveAll(ViewModel.Downloads);
             Application.Current.Shutdown();
+        }
+
+        private void InstallExtension_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                // مجلد الإضافة في بيئة العمل أو التثبيت
+                var extPath = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "AmmarDM.Extension"));
+                if (!Directory.Exists(extPath))
+                {
+                    extPath = Path.Combine(baseDir, "AmmarDM.Extension");
+                }
+
+                // تسجيل Native Host في Registry لـ Chrome و Edge
+                var exePath = Environment.ProcessPath ?? Path.Combine(baseDir, "AmmarDM.exe");
+                NativeMessagingService.RegisterHost(exePath);
+
+                var msg = "لتثبيت إضافة المتصفح الخاصة بـ Ammar DM:\n\n" +
+                          "1. افتح صفحة الإضافات في متصفحك:\n" +
+                          "   - Chrome: chrome://extensions\n" +
+                          "   - Edge: edge://extensions\n" +
+                          "   - Brave: brave://extensions\n\n" +
+                          "2. فعّل (وضع المطور / Developer Mode) في الزاوية العلوية.\n\n" +
+                          "3. اضغط على زر (تحميل إضافة لم يتم حزمها / Load unpacked) ثم اختر مجلد الإضافة الذي سنفتحه لك الآن.\n\n" +
+                          "هل تريد فتح مجلد الإضافة الآن؟";
+
+                if (MessageBox.Show(msg, "تثبيت إضافة المتصفح لـ Ammar DM", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    if (Directory.Exists(extPath))
+                    {
+                        System.Diagnostics.Process.Start("explorer.exe", extPath);
+                    }
+                    else
+                    {
+                        System.Diagnostics.Process.Start("explorer.exe", baseDir);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"حدث خطأ أثناء إعداد الإضافة: {ex.Message}", "خطأ", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OpenExtensionFolder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                var extPath = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "AmmarDM.Extension"));
+                if (Directory.Exists(extPath))
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", extPath);
+                }
+                else
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", baseDir);
+                }
+            }
+            catch { }
         }
 
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
